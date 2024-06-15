@@ -1,14 +1,7 @@
 import prologue
 import karax/[karaxdsl, vdom]
 import random
-import std/httpclient
-
-proc getContent(url: string): string =
-  var client = newHttpClient()
-  try:
-    result = client.getContent(url)
-  finally:
-    client.close()
+import getSitemap
 
 const links = [
   "/example/one",
@@ -17,6 +10,9 @@ const links = [
 ]
 
 proc hello*(ctx: Context) {.async.} =
+
+  let links = getSitemap("https://joshuatshaffer.com/sitemap.xml")
+
   let x = buildHtml(html(lang = "en")):
     head:
       meta(charset = "UTF-8", name = "viewport",
@@ -25,7 +21,9 @@ proc hello*(ctx: Context) {.async.} =
     body:
       h1: text "Hello, World!"
       a(href = "/random"): text "Random"
-      pre: text getContent("https://joshuatshaffer.com/sitemap.xml")
+      ul:
+        for link in links:
+          li: a(href = link): text link
   resp htmlResponse("<!DOCTYPE html>\n" & $x)
 
 proc randomRedirect*(ctx: Context) {.async.} =
