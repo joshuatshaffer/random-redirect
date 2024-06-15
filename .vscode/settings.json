@@ -1,0 +1,4 @@
+{
+    "nim.buildOnSave": true,
+    "editor.formatOnSave": true
+}
