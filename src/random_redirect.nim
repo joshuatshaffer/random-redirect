@@ -1,6 +1,14 @@
 import prologue
 import karax/[karaxdsl, vdom]
 import random
+import std/httpclient
+
+proc getContent(url: string): string =
+  var client = newHttpClient()
+  try:
+    result = client.getContent(url)
+  finally:
+    client.close()
 
 const links = [
   "/example/one",
@@ -17,6 +25,7 @@ proc hello*(ctx: Context) {.async.} =
     body:
       h1: text "Hello, World!"
       a(href = "/random"): text "Random"
+      pre: text getContent("https://joshuatshaffer.com/sitemap.xml")
   resp htmlResponse("<!DOCTYPE html>\n" & $x)
 
 proc randomRedirect*(ctx: Context) {.async.} =
