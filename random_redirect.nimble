@@ -11,3 +11,5 @@ bin           = @["random_redirect"]
 # Dependencies
 
 requires "nim >= 2.0.4"
+requires "prologue >= 0.6.6"
+requires "karax >= 1.3.3"
