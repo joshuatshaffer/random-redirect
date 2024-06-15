@@ -20,7 +20,7 @@ proc hello*(ctx: Context) {.async.} =
       title: text "Simple Chat"
     body:
       h1: text "Hello, World!"
-      a(href = "/random"): text "Random"
+      a(href = ctx.urlFor("random")): text "Random"
       ul:
         for link in links:
           li: a(href = link): text link
@@ -34,5 +34,5 @@ randomize()
 
 let app = newApp()
 app.get("/", hello)
-app.get("/random", randomRedirect)
+app.get("/random", randomRedirect, name = "random")
 app.run()
