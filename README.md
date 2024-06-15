@@ -1,6 +1,6 @@
 Compile and run the program.
 
 ```sh
-nim c hello.nim
-./hello
+nimble build
+./random_redirect
 ```
