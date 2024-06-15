@@ -3,15 +3,11 @@ import karax/[karaxdsl, vdom]
 import random
 import getSitemap
 
-const links = [
-  "/example/one",
-  "/example/two",
-  "/example/three",
-]
+const sitemapUrl = "https://joshuatshaffer.com/sitemap.xml"
 
 proc hello*(ctx: Context) {.async.} =
 
-  let links = getSitemap("https://joshuatshaffer.com/sitemap.xml")
+  let links = getSitemap(sitemapUrl)
 
   let x = buildHtml(html(lang = "en")):
     head:
@@ -27,6 +23,8 @@ proc hello*(ctx: Context) {.async.} =
   resp htmlResponse("<!DOCTYPE html>\n" & $x)
 
 proc randomRedirect*(ctx: Context) {.async.} =
+  # TODO: Cache the links so they are not fetched on every request.
+  let links = getSitemap(sitemapUrl)
   resp redirect(links[rand(links.high)])
 
 # Initialize the random number generator
