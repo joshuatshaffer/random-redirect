@@ -25,7 +25,10 @@ proc hello(ctx: Context) {.async.} =
 proc randomRedirect(ctx: Context) {.async.} =
   # TODO: Cache the links so they are not fetched on every request.
   let links = getSitemap(sitemapUrl)
-  resp redirect(links[rand(links.high)])
+
+  ctx.response.addHeader("Cache-Control", "no-cache, no-store, must-revalidate")
+
+  resp redirect(links[rand(links.high)], code = Http302)
 
 # Initialize the random number generator
 randomize()
