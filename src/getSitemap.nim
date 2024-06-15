@@ -3,11 +3,11 @@ import parsexml, strutils
 
 proc getSitemap*(url: string): seq[string] =
   ## Return a list of URLs from a sitemap file.
-  var client = newHttpClient()
+  let client = newHttpClient()
   var x: XmlParser
   result = @[]
   try:
-    var resp = client.get(url)
+    let resp = client.get(url)
 
     if not resp.code.is2xx:
       echo("Could not get " & url & " " & $resp.status)

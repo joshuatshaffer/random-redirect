@@ -5,7 +5,7 @@ import getSitemap
 
 const sitemapUrl = "https://joshuatshaffer.com/sitemap.xml"
 
-proc hello*(ctx: Context) {.async.} =
+proc hello(ctx: Context) {.async.} =
 
   let links = getSitemap(sitemapUrl)
 
@@ -22,7 +22,7 @@ proc hello*(ctx: Context) {.async.} =
           li: a(href = link): text link
   resp htmlResponse("<!DOCTYPE html>\n" & $x)
 
-proc randomRedirect*(ctx: Context) {.async.} =
+proc randomRedirect(ctx: Context) {.async.} =
   # TODO: Cache the links so they are not fetched on every request.
   let links = getSitemap(sitemapUrl)
   resp redirect(links[rand(links.high)])
