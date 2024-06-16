@@ -13,9 +13,9 @@ proc hello(ctx: Context) {.async.} =
     head:
       meta(charset = "UTF-8", name = "viewport",
           content = "width=device-width, initial-scale=1")
-      title: text "Simple Chat"
+      title: text "Admin UI - Random Redirect"
     body:
-      h1: text "Hello, World!"
+      h1: text "Admin UI"
       a(href = ctx.urlFor("random")): text "Random"
       ul:
         for link in links:
